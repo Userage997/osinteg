@@ -16,14 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (i < text.length) {
                 animatedText.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 50); // Скорость печати
-            } else {
-                // После завершения анимации текста, показываем индикатор прокрутки
-                document.querySelector('.scroll-indicator').style.opacity = '1';
+                setTimeout(typeWriter, 50);
             }
         };
         
-        // Задержка перед началом анимации
         setTimeout(typeWriter, 500);
     }
     
@@ -32,39 +28,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Переход на второй экран
     aboutOwnerBtn.addEventListener('click', function() {
-        // Анимация перехода
-        screen1.classList.remove('active');
-        setTimeout(() => {
-            screen2.classList.add('active');
-            // Прокрутка к верху второго экрана
-            window.scrollTo(0, 0);
-        }, 500);
+        // Плавное скрытие первого экрана
+        screen1.style.opacity = '0';
+        screen1.style.visibility = 'hidden';
         
-        // Анимация кнопки
-        this.classList.add('clicked');
         setTimeout(() => {
-            this.classList.remove('clicked');
+            // Показываем второй экран
+            screen2.style.opacity = '1';
+            screen2.style.visibility = 'visible';
+            screen2.classList.add('active');
+            
+            // Прокрутка к верху
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 300);
     });
     
     // Возврат на первый экран
     backBtn.addEventListener('click', function() {
-        screen2.classList.remove('active');
-        setTimeout(() => {
-            screen1.classList.add('active');
-            // Прокрутка к верху первого экрана
-            window.scrollTo(0, 0);
-        }, 500);
+        // Плавное скрытие второго экрана
+        screen2.style.opacity = '0';
+        screen2.style.visibility = 'hidden';
         
-        // Анимация кнопки
-        this.classList.add('clicked');
         setTimeout(() => {
-            this.classList.remove('clicked');
+            // Показываем первый экран
+            screen1.style.opacity = '1';
+            screen1.style.visibility = 'visible';
+            screen1.classList.add('active');
+            
+            // Прокрутка к верху
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 300);
     });
     
-    // Плавная анимация для всех кнопок при наведении
-    const buttons = document.querySelectorAll('.btn, .contact-btn, .back-btn');
+    // Плавная анимация для всех кнопок
+    const buttons = document.querySelectorAll('.btn, .back-btn');
     buttons.forEach(button => {
         button.addEventListener('mousedown', function() {
             this.style.transform = 'translateY(-2px) scale(0.98)';
@@ -75,9 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         button.addEventListener('mouseleave', function() {
-            if (!this.classList.contains('clicked')) {
-                this.style.transform = 'translateY(0)';
-            }
+            this.style.transform = 'translateY(0)';
         });
         
         // Эффект волны при клике
@@ -144,11 +139,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function initCircleAnimations() {
         const circles = document.querySelectorAll('.circle');
         circles.forEach(circle => {
-            // Случайная задержка для каждого круга
             const delay = Math.random() * 10;
             circle.style.animationDelay = `${delay}s`;
             
-            // Случайная продолжительность анимации
             const duration = 10 + Math.random() * 10;
             circle.style.animationDuration = `${duration}s`;
         });
@@ -156,30 +149,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     initCircleAnimations();
     
-    // Предзагрузка иконок для плавного отображения
+    // Предзагрузка иконок
     function preloadIcons() {
         const icons = [
             'fa-shield-alt',
             'fa-user',
             'fa-telegram',
-            'fa-chevron-down',
             'fa-arrow-left',
             'fa-user-secret',
+            'fa-user-tie',
             'fa-bullseye',
-            'fa-tasks',
             'fa-search',
             'fa-network-wired',
             'fa-shield-alt',
-            'fa-check-circle',
+            'fa-chart-line',
             'fa-user-shield',
-            'fa-file-investigation',
-            'fa-cogs',
+            'fa-clipboard-check',
+            'fa-handshake',
             'fa-star',
             'fa-tags',
             'fa-github'
         ];
         
-        // Создаем невидимый контейнер для предзагрузки
         const preloadContainer = document.createElement('div');
         preloadContainer.style.display = 'none';
         
@@ -191,48 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.body.appendChild(preloadContainer);
         
-        // Удаляем после загрузки
         setTimeout(() => {
             document.body.removeChild(preloadContainer);
         }, 1000);
     }
     
     preloadIcons();
-    
-    // Добавляем эффект появления элементов при прокрутке
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, observerOptions);
-    
-    // Наблюдаем за элементами для анимации появления
-    const animatedElements = document.querySelectorAll('.description-section, .contact-card, .skills-list li');
-    animatedElements.forEach(el => {
-        el.classList.add('fade-in');
-        observer.observe(el);
-    });
-    
-    // Добавляем дополнительные стили для анимации появления
-    const fadeStyles = document.createElement('style');
-    fadeStyles.textContent = `
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-    document.head.appendChild(fadeStyles);
 });
