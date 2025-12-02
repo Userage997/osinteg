@@ -149,43 +149,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     initCircleAnimations();
     
-    // Предзагрузка иконок
-    function preloadIcons() {
-        const icons = [
-            'fa-shield-alt',
-            'fa-user',
-            'fa-telegram',
-            'fa-arrow-left',
-            'fa-user-secret',
-            'fa-user-tie',
-            'fa-bullseye',
-            'fa-search',
-            'fa-network-wired',
-            'fa-shield-alt',
-            'fa-chart-line',
-            'fa-user-shield',
-            'fa-clipboard-check',
-            'fa-handshake',
-            'fa-star',
-            'fa-tags',
-            'fa-github'
+    // Предзагрузка изображений для плавного отображения
+    function preloadImages() {
+        const images = [
+            'https://i.ibb.co/zhMvd6Nd/photo-2024-12-02-21-45-30.jpg',
+            'https://i.ibb.co/KxqTYrsw/photo-2024-12-02-21-45-30.jpg'
         ];
         
-        const preloadContainer = document.createElement('div');
-        preloadContainer.style.display = 'none';
-        
-        icons.forEach(iconClass => {
-            const icon = document.createElement('i');
-            icon.className = `fas ${iconClass}`;
-            preloadContainer.appendChild(icon);
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
         });
-        
-        document.body.appendChild(preloadContainer);
-        
-        setTimeout(() => {
-            document.body.removeChild(preloadContainer);
-        }, 1000);
     }
     
-    preloadIcons();
+    preloadImages();
 });
