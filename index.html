@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Переходник проекта "Белая Русь"</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 1s ease;
+        }
+        
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .screen {
+            width: 100%;
+            max-width: 900px;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Первый экран */
+        .welcome-title {
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 3s steps(40) 0.5s forwards, blink 0.75s step-end infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            color: #e6e6e6;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+        
+        .buttons-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 3.5s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.3rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(-2px);
+        }
+        
+        /* Второй экран */
+        .owner-info {
+            max-width: 800px;
+        }
+        
+        .owner-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            color: #8f94fb;
+            text-shadow: 0 0 10px rgba(143, 148, 251, 0.5);
+        }
+        
+        .owner-description {
+            font-size: 1.3rem;
+            line-height: 1.7;
+            margin-bottom: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .owner-description h3 {
+            color: #38ef7d;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .owner-description ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        
+        .owner-description li {
+            margin-bottom: 10px;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        /* Анимация фона */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .circle:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .circle:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .circle:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+        
+        .circle:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            bottom: 15%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .welcome-title {
+                font-size: 2.5rem;
+                white-space: normal;
+                animation: none;
+                width: 100%;
+                opacity: 0;
+                animation: fadeIn 1.5s ease 0.5s forwards;
+            }
+            
+            @keyframes fadeIn {
+                to { opacity: 1 }
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .owner-title {
+                font-size: 2.2rem;
+            }
+            
+            .owner-description {
+                font-size: 1.1rem;
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 1.8rem;
+            }
+            
+            .owner-title {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .screen {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон -->
+    <div class="bg-animation">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    
+    <!-- Первый экран -->
+    <div class="container">
+        <section id="screen1" class="screen active">
+            <h1 class="welcome-title">Добро пожаловать в переходник проекта "Белая Русь"</h1>
+            
+            <div class="buttons-container">
+                <button id="aboutOwner" class="btn btn-secondary">О владельце</button>
+                <a href="https://t.me/Belairus" target="_blank" class="btn btn-primary">Перейти в проект</a>
+            </div>
+        </section>
+        
+        <!-- Второй экран -->
+        <section id="screen2" class="screen">
+            <button class="back-btn" id="backBtn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <div class="owner-info">
+                <h1 class="owner-title">Специалист OSINT и киберразведки</h1>
+                
+                <div class="owner-description">
+                    <h3>Профессиональный профиль</h3>
+                    <p>Я являюсь экспертом в области OSINT (Open Source Intelligence) и киберразведки с многолетним опытом анализа цифровых следов, сбора информации из открытых источников и обеспечения кибербезопасности.</p>
+                    
+                    <h3>Основные направления деятельности:</h3>
+                    <ul>
+                        <li>Проведение комплексных OSINT-расследований</li>
+                        <li>Анализ цифровых следов в социальных сетях и интернет-ресурсах</li>
+                        <li>Киберразведка и оценка угроз информационной безопасности</li>
+                        <li>Поиск и верификация информации из открытых источников</li>
+                        <li>Консультации по вопросам цифровой гигиены и безопасности</li>
+                        <li>Расследование инцидентов информационной безопасности</li>
+                    </ul>
+                    
+                    <h3>Методология работы:</h3>
+                    <p>Использую легальные методы сбора информации исключительно из открытых источников с соблюдением этических норм и законодательства. Работаю конфиденциально, гарантирую полную анонимность клиентов.</p>
+                </div>
+                
+                <div class="buttons-container">
+                    <a href="https://t.me/ecolil" target="_blank" class="btn btn-secondary">Репутация (отзывы)</a>
+                    <a href="https://t.me/oexllf" target="_blank" class="btn btn-primary">Мой прайс</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const screen1 = document.getElementById('screen1');
+            const screen2 = document.getElementById('screen2');
+            const aboutOwnerBtn = document.getElementById('aboutOwner');
+            const backBtn = document.getElementById('backBtn');
+            
+            // Переход на второй экран
+            aboutOwnerBtn.addEventListener('click', function() {
+                screen1.classList.remove('active');
+                setTimeout(() => {
+                    screen2.classList.add('active');
+                }, 500);
+            });
+            
+            // Возврат на первый экран
+            backBtn.addEventListener('click', function() {
+                screen2.classList.remove('active');
+                setTimeout(() => {
+                    screen1.classList.add('active');
+                }, 500);
+            });
+            
+            // Добавляем интерактивность кнопкам
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                button.addEventListener('mouseup', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Анимация для плавающих кругов фона
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach(circle => {
+                // Случайная задержка для каждого круга
+                const delay = Math.random() * 5;
+                circle.style.animationDelay = `${delay}s`;
+            });
+        });
+    </script>
+</body>
+</html>
