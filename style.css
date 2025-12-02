@@ -14,11 +14,11 @@ body {
     position: relative;
 }
 
-/* Кнопка создателя сайта */
+/* Кнопка создателя сайта - ПРАВЫЙ ВЕРХНИЙ УГОЛ */
 .creator-btn {
     position: fixed;
     top: 20px;
-    left: 20px;
+    right: 20px;
     background: rgba(255, 255, 255, 0.08);
     color: rgba(255, 255, 255, 0.7);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -632,9 +632,10 @@ body {
         height: 120px;
     }
     
+    /* Кнопка создателя - адаптивность */
     .creator-btn {
         top: 15px;
-        left: 15px;
+        right: 15px;
         padding: 6px 12px;
         font-size: 0.75rem;
     }
@@ -684,9 +685,10 @@ body {
         height: 110px;
     }
     
+    /* Кнопка создателя - адаптивность */
     .creator-btn {
         top: 12px;
-        left: 12px;
+        right: 12px;
         padding: 5px 10px;
         font-size: 0.7rem;
     }
