@@ -117,13 +117,13 @@ body {
     text-align: center;
 }
 
-/* Первый экран */
+/* Первый экран - обновленный */
 .logo-container {
     margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .logo-icon {
@@ -152,22 +152,36 @@ body {
 }
 
 .project-title {
-    font-size: 3rem;
-    background: linear-gradient(to right, #8f94fb, #4e54c8);
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    background: linear-gradient(to right, #8f94fb, #4e54c8, #8f94fb);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+}
+
+.project-subtitle {
+    display: block;
+    font-size: 4rem;
+    background: linear-gradient(to right, #38ef7d, #11998e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .welcome-title {
-    font-size: 3rem;
-    margin-bottom: 60px;
+    font-size: 2.8rem;
+    margin: 30px 0 60px;
     line-height: 1.3;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     padding-bottom: 20px;
+    max-width: 900px;
 }
 
 .welcome-title::after {
@@ -184,7 +198,7 @@ body {
 .buttons-container {
     display: flex;
     gap: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -262,7 +276,7 @@ body {
     }
 }
 
-/* Второй экран */
+/* Второй экран - обновленный */
 .back-btn {
     position: absolute;
     top: 30px;
@@ -289,6 +303,11 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+.owner-info {
+    width: 100%;
+    max-width: 1000px;
+}
+
 .owner-header {
     margin-bottom: 50px;
     display: flex;
@@ -296,33 +315,82 @@ body {
     align-items: center;
 }
 
-.owner-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #11998e, #38ef7d);
+.owner-photo-container {
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.photo-placeholder {
+    width: 250px;
+    height: 250px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #1a1a3e, #2d2d5c);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3.5rem;
-    color: white;
-    margin-bottom: 25px;
-    box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-placeholder::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(45deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+.photo-note {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    font-style: italic;
+    text-align: center;
+    max-width: 250px;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 
 .owner-title {
-    font-size: 2.8rem;
+    font-size: 3rem;
     margin-bottom: 10px;
-    background: linear-gradient(to right, #38ef7d, #11998e);
+    background: linear-gradient(to right, #38ef7d, #11998e, #4e54c8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .owner-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     color: #aaa;
     max-width: 600px;
+    margin-bottom: 30px;
 }
 
 .owner-description {
@@ -334,7 +402,7 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-align: left;
-    max-width: 900px;
+    max-width: 1000px;
 }
 
 .description-section {
@@ -358,6 +426,11 @@ body {
     line-height: 1.7;
     color: #ddd;
     font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.description-section p:last-child {
+    margin-bottom: 0;
 }
 
 .skills-list {
@@ -384,79 +457,25 @@ body {
     transform: translateX(5px);
 }
 
-.owner-contacts {
+.owner-buttons {
     display: flex;
     gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
     max-width: 900px;
+    margin-top: 40px;
 }
 
-.contact-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    width: 280px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.contact-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    background: rgba(255, 255, 255, 0.08);
-}
-
-.contact-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
+.btn-reputation {
+    background: linear-gradient(135deg, #ff9a00, #ff6a00);
     color: white;
-    margin-bottom: 20px;
+    min-width: 280px;
 }
 
-.contact-card h4 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #fff;
-}
-
-.contact-card p {
-    color: #aaa;
-    margin-bottom: 20px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.contact-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background: rgba(255, 255, 255, 0.1);
+.btn-price {
+    background: linear-gradient(135deg, #8f94fb, #4e54c8);
     color: white;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.contact-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px);
+    min-width: 200px;
 }
 
 /* Футер */
@@ -506,20 +525,42 @@ body {
 
 /* Адаптивность */
 @media (max-width: 992px) {
+    .project-title {
+        font-size: 3.8rem;
+    }
+    
+    .project-subtitle {
+        font-size: 3.3rem;
+    }
+    
     .welcome-title {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
     }
     
     .owner-title {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
     }
     
     .owner-description {
         padding: 30px;
     }
+    
+    .photo-placeholder {
+        width: 220px;
+        height: 220px;
+        font-size: 4rem;
+    }
 }
 
 @media (max-width: 768px) {
+    .project-title {
+        font-size: 3rem;
+    }
+    
+    .project-subtitle {
+        font-size: 2.5rem;
+    }
+    
     .welcome-title {
         font-size: 2rem;
         white-space: normal;
@@ -537,11 +578,11 @@ body {
     }
     
     .owner-title {
-        font-size: 1.8rem;
+        font-size: 2rem;
     }
     
     .owner-subtitle {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     .owner-description {
@@ -552,9 +593,15 @@ body {
         grid-template-columns: 1fr;
     }
     
-    .owner-contacts {
+    .owner-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 20px;
+    }
+    
+    .btn-reputation, .btn-price {
+        width: 100%;
+        max-width: 400px;
     }
     
     .footer-content {
@@ -569,19 +616,33 @@ body {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
+    
+    .photo-placeholder {
+        width: 200px;
+        height: 200px;
+        font-size: 3.5rem;
+    }
 }
 
 @media (max-width: 480px) {
+    .project-title {
+        font-size: 2.5rem;
+    }
+    
+    .project-subtitle {
+        font-size: 2rem;
+    }
+    
     .welcome-title {
         font-size: 1.7rem;
     }
     
-    .project-title {
-        font-size: 2.2rem;
+    .owner-title {
+        font-size: 1.8rem;
     }
     
-    .owner-title {
-        font-size: 1.6rem;
+    .owner-subtitle {
+        font-size: 1.1rem;
     }
     
     .btn {
@@ -599,5 +660,11 @@ body {
     
     .screen {
         padding: 20px 15px;
+    }
+    
+    .photo-placeholder {
+        width: 180px;
+        height: 180px;
+        font-size: 3rem;
     }
 }
